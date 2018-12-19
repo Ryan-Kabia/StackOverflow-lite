@@ -63,6 +63,24 @@ a {
     height:60px;
     margin-top:5px;
 }
+#aside_cat{margin-left: 20px;}
+#Q_view{
+    display:inline-block;
+    overflow: scroll;
+    height:600px;
+}
+.Q_view{
+    margin: 10px;
+    padding: 5px;
+    width: 500px;
+    border-left:2px solid orangered;
+    font-size: 13px;
+    overflow: hidden; 
+}
+#filters{
+    font-size: 13px;
+    font-weight: 200;
+}
 
 #logo{
     margin-top:5px;
@@ -90,3 +108,23 @@ a {
     padding: 20px 15px 0 0;
 }
 #clear{clear: both;}
+#aside_cat{
+    width:200px;
+    height: 600px;
+    margin-left:20px;
+    float: left;
+    position: relative;
+}
+#popular_Q{
+    width: 300px;
+    height: 600px;
+    float:right;
+}
+#pop_Q #Ads{
+    height:300;
+}
+ul{
+    list-style-type:none;
+    margin: 10px 0 10px 10px;
+    padding: 0;
+}
