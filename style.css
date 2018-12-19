@@ -1,0 +1,92 @@
+body{
+    margin: 0;
+    padding:0;
+    font-family: Helvetica, Arial, Sans-serif;
+}
+footer{
+    bottom:0;
+    position:fixed;
+    width:100%;
+    height: 30px;
+    text-align: center;
+    padding-top: 5px;
+    background-color: orangered;
+    color: white;
+}
+form{
+    border: 3px solid orangered;
+    max-width:500px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 20px;
+    clear:both
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid orangered;
+    box-sizing: border-box;
+  }
+form button {
+    background-color: orangered;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+form button:hover {
+    opacity: 0.8;
+}
+
+.container {
+    padding: 16px;
+    overflow: hidden;
+}
+
+span.psw {
+    float: right;
+    padding-top: 0px;
+}
+  
+a {
+    text-decoration: none;
+    color: orangered;
+    transition: .5s ease;
+  }
+.tmsection{
+    float:left;
+    height:60px;
+    margin-top:5px;
+}
+
+#logo{
+    margin-top:5px;
+    width:200px;
+    height:50px;
+    margin-right: 2px;
+}
+#search{display: inline;}
+#sbox{
+    width: 650px;
+    padding: 8px 20px;
+    margin: 8px 0;
+    border: 1px solid orangered;
+    color:grey;
+}
+#sbutton{
+    padding: 8px 20px;
+    margin: 8px 0 0 5px;
+    border: 1px solid orangered;
+    background-color: orangered;
+    color:white;
+}
+#wrap_rght{float:right;}
+#categories, #FAQ, #signup, #login{
+    padding: 20px 15px 0 0;
+}
+#clear{clear: both;}
