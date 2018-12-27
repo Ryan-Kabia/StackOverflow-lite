@@ -62,7 +62,18 @@ def post_question():
 
     return jsonify({'Message':questions})
     
+@app.route('/questions/<questionId>',methods=['DELETE'])
+def delete_specific(questionId):
+    for question in questions:
+        if question['questionId'] == questionId:
+            questions.remove(question)
+            delete_item = questions
+            break
+        else:
+            delete_item = 'Error,Entry not found'
+    return jsonify({'Message':delete_item})
 
+        
 
 
 
