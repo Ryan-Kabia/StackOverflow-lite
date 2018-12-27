@@ -42,6 +42,25 @@ def fetch_specific(questionId):
             fetched_item='Search error, not found!'
 
     return jsonify({'Message':fetched_item})
+
+@app.route('/questions',methods=['POST'])
+def post_question():
+
+    data = request.get_json()
+
+    author = data['author']
+    question = data['question']
+    questionId = data['questionId']
+
+    post_q = {
+        'author':author,
+        'question':question,
+        'questionId':questionId
+    }
+
+    questions.append(post_q)
+
+    return jsonify({'Message':questions})
     
 
 
