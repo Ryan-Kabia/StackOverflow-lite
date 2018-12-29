@@ -1,4 +1,5 @@
-from flask import Flask
-app = Flask(__name__)
+#from flask import Flask
 
-import api.v1.views
+#app1 = Flask(__name__)
+
+#import api.v1.views
