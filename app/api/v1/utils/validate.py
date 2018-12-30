@@ -1,3 +1,4 @@
+from v1.models.database import reg_users
 from flask import jsonify
 import re
 
@@ -9,13 +10,15 @@ class Validate():
            return False
 
     def check_username(self,username):
-        registered_users = []
+        rusers = []
+        for user in reg_users:
+            plc_hld = user['username']
+            rusers.append(plc_hld)
 
-        if username in registered_users:
+        if username in rusers:
             return False
 
-        elif username not in registered_users:
-            registered_users.append(username)
+        elif username not in rusers:
             return True
         
     def valid_email(self,email):
@@ -26,13 +29,17 @@ class Validate():
         else:
             return True
     def check_email(self,email):
-        registered_emails = []
+        remails = []
 
-        if email not in registered_emails:
-            registered_emails.append(email)
-            return True
-        elif email in registered_emails:
+        for user in reg_users:
+            plc_hld = user['email']
+            remails.append(plc_hld)
+
+        if email in remails:
             return False
+
+        elif email not in rusers:
+            return True
         
     def check_password(self,password):
         pswd = password
@@ -49,3 +56,16 @@ class Validate():
             return False
         else:
             return True
+
+    def valid_password(self,password,username):
+        
+        rusers = []
+        for user in reg_users:
+            plc_hld = user
+
+            if plc_hld['username'] == username:
+                if plc_hld['password'] == password:
+                    return True 
+                    break   
+                else:
+                    return False

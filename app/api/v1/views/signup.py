@@ -1,5 +1,6 @@
 from flask import Flask,request,jsonify
 from v1.utils.validate import Validate
+from v1.models.database import reg_users
 app = Flask (__name__)
 
 user = []
@@ -32,13 +33,6 @@ def signup():
     else:
         return jsonify ({'Message':'password not valid! Must be atleast 8 and atmost 20 characters,Contain atleast 1 Uppercase, 1 lowercase and 1 number'})
 
-    try:
-        if not data:
-            return jsonify({'Message':'Data not found'}),400
-        
-            return jsonify({'message':'name,email,username or password fields are empty!'}),400
-    except:
-        return jsonify ({'Message':'name,email,username or password fields missing'})
 
     new_user = {
         'name':name,
@@ -47,5 +41,5 @@ def signup():
         'password':password
     }
 
-    user.append(new_user)
+    reg_users.append(new_user)
     return jsonify({'Message':'{} added succesfully'.format(new_user['username'])})
