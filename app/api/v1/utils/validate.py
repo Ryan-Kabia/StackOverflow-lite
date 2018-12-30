@@ -11,11 +11,13 @@ class Validate():
     def check_username(self,username):
         registered_users = []
 
-        if username not in registered_users:
+        if username in registered_users:
+            return False
+
+        elif username not in registered_users:
             registered_users.append(username)
             return True
-        elif username in registered_users:
-            return False
+        
     def valid_email(self,email):
         vemail = re.compile(r'(\w+[.|\w])*@(\w+[.])*\w+') 
 
