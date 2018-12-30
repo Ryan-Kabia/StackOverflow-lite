@@ -69,3 +69,21 @@ class Validate():
                     break   
                 else:
                     return False
+
+    def check_empty_question(self,question,questionId):
+
+       if question == "" or questionId == "":
+           return False
+
+class SimulateLogin():
+    def sim(username,password):
+        rusers = []
+        for user in reg_users:
+            plc_hld = user
+
+            if plc_hld['username'] == username:
+                if plc_hld['password'] == password:
+                    return True 
+                    break   
+                else:
+                    return False
