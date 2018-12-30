@@ -1,42 +1,49 @@
-from flask import Flask
+from flask import jsonify
+import re
 
-app = Flask[__name__]
+class Validate():
 
-Class Valitdate():
-    def check_username(new_user):
+    def check_empty(self,name,email,username,password):
+
+       if name == "" or email == "" or username == "" or password == "":
+           return False
+
+    def check_username(self,username):
         registered_users = []
 
-        if new_user('username') not in registered_users:
-            registered_users.append(new_user('username'))
+        if username not in registered_users:
+            registered_users.append(username)
             return True
-        elif new_user('username') in registered_users:
-            return ({'Message':'username already taken!'})
+        elif username in registered_users:
+            return False
+    def valid_email(self,email):
+        vemail = re.compile(r'(\w+[.|\w])*@(\w+[.])*\w+') 
 
-    def check_email(new_user):
-        valid_email = re.compile(r'(\w+[.|\w])*@(\w+[.])*\w+') 
+        if not vemail.match(email):
+            return False
+        else:
+            return True
+    def check_email(self,email):
         registered_emails = []
 
-        if valid_email.match(new_user('email')):
-            if new_user('email') not in registered_emails:
-                registered_emails.append(new_user('email'))
-                return True
-            elif new_user('email') in registered_emails:
-                return ({'Message':'email already taken!'})
-        elif not valid_email.match(new_user('email')):
-            return ({'Message':'email is not valid!'})
-
-    def check_password(new_user):
-        pswd = new_user('password')
+        if email not in registered_emails:
+            registered_emails.append(email)
+            return True
+        elif email in registered_emails:
+            return False
+        
+    def check_password(self,password):
+        pswd = password
 
         if (len(pswd)<8):
-            return ({'Message':'Password is too short.Minimum of 8 charaters'})
+            return False
         elif (len(pswd)>20):
-            return ({'Message':'Password is too long.Maximum of 20 charaters'})
+            return False
         elif not re.search("[A-Z]",pswd):
-            return ({'Message':'Password should contain atleast 1 uppercase letter'})
+            return False
         elif not re.search("[a-z]",pswd):
-            return ({'Message':'Password should contain atleast 1 lowercase letter'})
+            return False
         elif not re.search("[0-9]",pswd):
-            return ({'Message':'Password should contain atleast 1 number'})
+            return False
         else:
             return True
