@@ -38,7 +38,7 @@ class Validate():
         if email in remails:
             return False
 
-        elif email not in rusers:
+        elif email not in remails:
             return True
         
     def check_password(self,password):
