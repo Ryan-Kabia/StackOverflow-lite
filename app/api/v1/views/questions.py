@@ -7,18 +7,19 @@ app=Flask(__name__)
 
 @app.route("/questions",methods=["GET"])
 def fetch_all():
-    return jsonify({"Message":post_qstns})
+    return jsonify({"All Questions":post_qstns}),200
 
 @app.route("/questions/<questionId>",methods=["GET"])
 def fetch_specific(questionId):
     for question in post_qstns:
         if question["questionId"] == questionId:
             fetched_item = question
+            return jsonify({"Search Results":fetched_item}),200
             break
         else:
-            fetched_item="Search error, question not found!"
+            return jsonify ({"Message":"Question not found"}),404
 
-    return jsonify({"Message":fetched_item})
+    
 
 @app.route("/questions",methods=["POST"])
 def post_question():
@@ -31,12 +32,12 @@ def post_question():
                         "password":data["password"]
                         }
     else:
-        return jsonify ({"Message":"login unsuccessful,invalid username or password"})
+        return jsonify ({"Message":"login unsuccessful,invalid username or password"}),200
 
     vldr = Validate()
 
     if vldr.check_empty_question(data["question"],data["questionId"]) == False:
-        return jsonify ({"Message":"author,question or questionId fields are empty!"}),400
+        return jsonify ({"Message":"question or questionId fields are empty!"}),400
     else:
         author = current_user["username"]
         question = data["question"]
@@ -50,7 +51,7 @@ def post_question():
 
     post_qstns.append(post_q)
 
-    return jsonify({"Message":"QID {}({}): {}".format(post_q['questionId'],post_q['author'],post_q['question'])})
+    return jsonify({"Message":"QID {}({}): {}".format(post_q['questionId'],post_q['author'],post_q['question'])}),200
     
 @app.route("/questions/<questionId>",methods=["DELETE"])
 def delete_specific(questionId):
@@ -63,7 +64,7 @@ def delete_specific(questionId):
                         "password":data["password"]
                         }
     else:
-        return jsonify ({"Message":"login unsuccessful,invalid username or password"})
+        return jsonify ({"Message":"login unsuccessful,invalid username or password"}),401
 
     for question in post_qstns:
         query = question
@@ -72,10 +73,10 @@ def delete_specific(questionId):
             if query["author"] == current_user["username"]:
                 post_qstns.remove(question)
                 delete_item = post_qstns
-                return jsonify ({"Message":"question (ID {}) was deleted succesfully".format(questionId)})
+                return jsonify ({"Message":"question (ID {}) was deleted succesfully".format(questionId)}),200
                 break
             else:
-                return jsonify ({"Message":"Only the author of the question can delete it"})
+                return jsonify ({"Message":"Only the author of the question can delete it"}),401
         else:
             return jsonify ({"Message":"Error,questionId could not be found"})
     
@@ -83,12 +84,22 @@ def delete_specific(questionId):
 def post_answer(questionId):
 
     data = request.get_json()
+    #Placeholder function for auth using tokens
+    sim_user = SimulateLogin
+    
+    if sim_user.sim(data["username"], data["password"]) == True:
+        current_user = {"username":data["username"],
+                        "password":data["password"]
+                        }
+    else:
+        return jsonify ({"Message":"login unsuccessful,invalid username or password"}),401
+
     vldr = Validate()
 
-    if vldr.check_empty_question(data["ans_author"],data["answer"],data["answerId"]) == False:
-        return jsonify ({"Message":"ans_author,answer or answerId fields are empty!"}),400
+    if vldr.check_empty_question(data["answer"],data["answerId"]) == False:
+        return jsonify ({"Message":"answer or answerId fields are empty!"}),400
     else:
-        ans_author = data["ans_author"]
+        ans_author = current_user["username"]
         answer = data["answer"]
         answerId = data["answerId"]
 
@@ -100,14 +111,20 @@ def post_answer(questionId):
     }
 
     for question in post_qstns:
-        if question["questionId"] == questionId:
-            query = question
-            post_a.update("questionId",questionId)
+        query = question
+        ans_to_qstn = []
+        if query["questionId"] == questionId:
+            post_a.update(questionId = questionId)
             post_ans.append(post_a)
-            return jsonify({"Message":"Succesfully Answered {} with {}".format(query["question"],post_a["answer"])})
+            for answer in post_ans:
+                ans_query = answer
+                if ans_query["questionId"] == questionId:
+                    ans_to_qstn.append(ans_query)
+
+            return jsonify({"Question":"Q-ID({}):{}".format(questionId,query["question"])},{"Answer":"A-ID({}):{}".format(post_a["questionId"],post_a["answer"])},{"All Answers to this question":ans_to_qstn}),200
             break
         else:
-           return jsonify ({"Message":"Error,question could not be found"})
+           return jsonify ({"Message":"Error,question could not be found"}),404
 
     
 
