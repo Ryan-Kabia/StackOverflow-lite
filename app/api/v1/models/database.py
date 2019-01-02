@@ -26,30 +26,36 @@ reg_users = [
     
 ]
 
-post_qstns = [{
+post_qstns = [
+{
     "author":"BayBay",
     "questionId":"001",
-    "question":"I,m Adam freaking Cole BayBay! and that is undisputed!",
-},{
-    "author":"Ciampa",
+    "question":"I,m Adam freaking Cole BayBay! and that is undisputed!"
+},
+{
+    "author":"CombatKo",
     "questionId":"002",
-    "question":"I ended the fairytale! baddest sob on the planet.Follow my lead!",
-},{
-    "author":"Alesiter Black",
+    "question":"I ended the fairytale! baddest sob on the planet.Follow my lead!"
+},
+{
+    "author":"Fishbone1",
     "questionId":"003",
-    "question":"You will be absolved of your sins as you fade to black!",
-},{
-    "author":"EC3",
+    "question":"You will be absolved of your sins as you fade to black!"
+},
+{
+    "author":"Backbreaker Meshiah",
     "questionId":"004",
-    "question":"I,m the best here, i am the best there, i am the best anywhere coz im in the top 1 percent.",
-},{
-    "author":"Petee Dunn",
+    "question":"I,m the best here, i am the best there, i am the best anywhere coz im in the top 1 percent."
+},
+{
+    "author":"CombatKo",
     "questionId":"005",
-    "question":"none of the lot could hold a candle to the bruiserweight",
-},{
-    "author":"Velveteen Dream",
+    "question":"none of the lot could hold a candle to the bruiserweight"
+},
+{
+    "author":"Fishbone1",
     "questionId":"006",
-    "question":"Lights! Ambience! Experience! Velveteen Dream!",
+    "question":"Lights! Ambience! Experience! Velveteen Dream!"
 }]
 
 

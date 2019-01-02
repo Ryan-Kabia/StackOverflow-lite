@@ -13,14 +13,10 @@ def fetch_all():
 def fetch_specific(questionId):
     for question in post_qstns:
         if question["questionId"] == questionId:
-            fetched_item = question
-            return jsonify({"Search Results":fetched_item}),200
-            break
-        else:
-            return jsonify ({"Message":"Question not found"}),404
-
+            return jsonify({"Search Results":question}),200
+        
+    return jsonify({"Search Results":"Error! Question could not be found!"}),404
     
-
 @app.route("/questions",methods=["POST"])
 def post_question():
     data = request.get_json()
@@ -32,7 +28,7 @@ def post_question():
                         "password":data["password"]
                         }
     else:
-        return jsonify ({"Message":"login unsuccessful,invalid username or password"}),200
+        return jsonify ({"Message":"login unsuccessful,invalid username or password"}),401
 
     vldr = Validate()
 
@@ -67,18 +63,15 @@ def delete_specific(questionId):
         return jsonify ({"Message":"login unsuccessful,invalid username or password"}),401
 
     for question in post_qstns:
-        query = question
-        
-        if query["questionId"] == questionId:
-            if query["author"] == current_user["username"]:
+        if question["questionId"] == questionId:
+            if question["author"] == current_user["username"]:
                 post_qstns.remove(question)
                 delete_item = post_qstns
                 return jsonify ({"Message":"question (ID {}) was deleted succesfully".format(questionId)}),200
-                break
             else:
                 return jsonify ({"Message":"Only the author of the question can delete it"}),401
-        else:
-            return jsonify ({"Message":"Error,questionId could not be found"})
+        
+    return jsonify ({"Message":"Error,questionId could not be found"}),400
     
 @app.route("/questions/<questionId>/answers",methods=["POST"])
 def post_answer(questionId):
@@ -121,7 +114,7 @@ def post_answer(questionId):
                 if ans_query["questionId"] == questionId:
                     ans_to_qstn.append(ans_query)
 
-            return jsonify({"Question":"Q-ID({}):{}".format(questionId,query["question"])},{"Answer":"A-ID({}):{}".format(post_a["questionId"],post_a["answer"])},{"All Answers to this question":ans_to_qstn}),200
+            return jsonify({"Question":"Q-ID({}):{}".format(questionId,query["question"])},{"Answer":"A-ID({}):{}".format(post_a["answerId"],post_a["answer"])},{"All Answers to this question":ans_to_qstn}),200
             break
         else:
            return jsonify ({"Message":"Error,question could not be found"}),404
