@@ -17,20 +17,20 @@ def signup():
     if vldr.check_username(data["username"]) == True:
         username = data["username"]
     else:
-        return jsonify ({"Message":"username is already taken"})
+        return jsonify ({"Message":"username is already taken"}),403
 
     if vldr.valid_email(data["email"]) == True:
         if vldr.check_email(data["email"]) == True:
             email = data["email"]
         else:
-            return jsonify ({"Message":"email already in use,choose a diffrent one"})
+            return jsonify ({"Message":"email already in use,choose a diffrent one"}),403
     else:
-        return jsonify ({"Message":"email is not valid!"})
+        return jsonify ({"Message":"email is not valid!"}),400
 
     if vldr.check_password(data["password"]) == True:
         password = data["password"]
     else:
-        return jsonify ({"Message":"password not valid! Must be atleast 8 and atmost 20 characters,Contain atleast 1 Uppercase, 1 lowercase and 1 number"})
+        return jsonify ({"Message":"password not valid! Must be atleast 8 and atmost 20 characters,Contain atleast 1 Uppercase, 1 lowercase and 1 number"}),400
 
 
     new_user = {
@@ -58,11 +58,11 @@ def login():
             if vldr.valid_password(data["password"],data["username"]) == True:
                 password = data["password"]
             else:
-                return jsonify ({"Message":"password is incorrect,Try again."})
+                return jsonify ({"Message":"password is incorrect,Try again."}),401
         else:
-            return jsonify ({"Message":"password not valid! Must be atleast 8 and atmost 20 characters,Contain atleast 1 Uppercase, 1 lowercase and 1 number"})
+            return jsonify ({"Message":"password not valid! Must be atleast 8 and atmost 20 characters,Contain atleast 1 Uppercase, 1 lowercase and 1 number"}),400
     else:
-        return jsonify ({"Message":"invalid username!"})
+        return jsonify ({"Message":"invalid username!"}),401
 
    
     logged_user = {
@@ -71,7 +71,7 @@ def login():
     }
 
     if logged_user:
-        return jsonify({"Message":"{} logged in succesfully".format(logged_user["username"])})
+        return jsonify({"Message":"{} logged in succesfully".format(logged_user["username"])}),200
 
 
 
